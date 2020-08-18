@@ -1,7 +1,19 @@
---- 
+---
 applications:
 - name: ita_dgth_03
-  timeout: 180
-  memory: 512M
-  disk_quota: 512M
-  buildpack: java_buildpack_v4_20
+  env:
+    spring.profiles.active: ${DEPLOY_ENVIRONMENT}
+    JAVA_OPTS: '${EXTRA_JAVA_OPTS}'
+  timeout: 60
+  memory:
+    requests: 256M
+    limits: 512M
+  cpu:
+    requests: 100m
+    limits: 3000m
+  buildpack: java_buildpack_v4_19_1
+  instances: 1
+  services:
+  - config-service
+  - solace-ita-dgth
+  - mongo-ita-dgth

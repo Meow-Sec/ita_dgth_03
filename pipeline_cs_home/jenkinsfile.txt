@@ -1,0 +1,43 @@
+#!groovy
+node ("taskworker") {
+    cmsUtils = load "${PIPELINE_SCRIPT_PATH}/pipeline_script/Interface.groovy"
+}
+// application information
+project					= "ITA"
+microservice			= "ita_dgth_03"
+version					= "2.0.0"
+
+// GIT info
+SCMServer				= "hkggitlab"
+
+// tenant
+tenant                  = "common"
+
+// build info
+buildPath				= "/app"
+techStack				= "java"
+build_execScript        = "cmsBuild" // Script to generate java compiled file before cf push (relatively from “buildPath”) (e.g. cmsBuild in "/app")
+build_outputFile        = "target/${microservice}.jar" // Location of output after build_execScript executed (relatively from “buildPath”)
+build_dockerRef         = "maven:3.5.0-jdk-8" // Docker base image to run the build_execScript
+
+// deploy behaviour
+integratorEmailAddr		= "jasper.wu@cargosmart.com jim.chen@cargosmart.com humphrey.hu@cargosmart.com david.shi@cargosmart.com" // separate by " "
+
+try {
+    stage('Build AKS'){
+        node {
+            platformType = "AKS"
+            cmsUtils.Pipeline_Package_Microservice()
+        }
+    }
+} catch (e) {
+    currentBuild.result = "FAILURE"
+	// integratorEmailAddr = integratorEmailAddr + ' ' + 'b2b223de.oworkspace.onmicrosoft.com@apac.teams.ms' // Notify to MS Teams when fail!
+    throw e
+} finally {
+    stage ('Summary'){
+        node {
+            cmsUtils.Pipeline_Send_Summary(currentBuild.result)
+        }
+    }
+}

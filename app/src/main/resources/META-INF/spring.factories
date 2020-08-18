@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=cloud.config.agent.auto.configure.ConfigAgentAutoConfiguration
+org.springframework.context.ApplicationListener=cloud.config.agent.auto.configure.PostConfigAgentListener,cloud.config.agent.auto.configure.ApplicationFailedListener

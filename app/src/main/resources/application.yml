@@ -1,0 +1,14 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+
+project-config:
+  service-name:
+    mongo: mongo-ita-dgth
+    solace: solace-ita-dgth
+gsbn:
+  host: https://csbc-hm-biz-api-dev2-dshrd.shrd.cargosmart.online/api
+  application-id: cc21795e-2e88-4b95-825f-5cb306f36a31
+  org-id: 4d20c718-e072-4097-a65e-45cfac045361-ita03

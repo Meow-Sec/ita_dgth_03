@@ -1,0 +1,18 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/ita01
+
+solace:
+  jms:
+    host: smf://hk3cvdv00225:55555
+    msg-vpn: CSQA1
+    client-password: csqa1pwd1
+    client-username: csqa1user
+
+server:
+  port: 8999
+
+logging:
+  level:
+    root: info

@@ -30,7 +30,7 @@ under the License.
         <mirror>
             <id>mirror.central</id>
             <name>Mirror central</name>
-            <url>https://artifact.oocl.com/artifactory/maven-repository-virtual</url>
+            <url>https://artifact.cargosmart.com/artifactory/java-repository-virtual</url>
             <mirrorOf>central</mirrorOf>
         </mirror>
     </mirrors>
@@ -40,7 +40,7 @@ under the License.
             <repositories>
                 <repository>
                     <id>central-cms2</id>
-                    <url>https://artifact.oocl.com/artifactory/maven-repository-virtual</url>
+                    <url>https://artifact.cargosmart.com/artifactory/java-repository-virtual</url>
                     <releases>
                         <enabled>true</enabled>
                         <updatePolicy>always</updatePolicy>
@@ -52,7 +52,7 @@ under the License.
                 </repository>
                 <repository>
                     <id>central</id>
-                    <url>https://artifact.oocl.com/artifactory/maven-repository-virtual</url>
+                    <url>https://artifact.cargosmart.com/artifactory/java-repository-virtual</url>
                     <releases>
                         <enabled>true</enabled>
                         <updatePolicy>always</updatePolicy>
@@ -66,7 +66,7 @@ under the License.
             <pluginRepositories>
                 <pluginRepository>
                     <id>central-cms2</id>
-                    <url>https://artifact.oocl.com/artifactory/maven-repository-virtual-external</url>
+                    <url>https://artifact.cargosmart.com/artifactory/java-repository-virtual-external</url>
                     <releases>
                         <enabled>true</enabled>
                         <updatePolicy>always</updatePolicy>
@@ -78,7 +78,7 @@ under the License.
                 </pluginRepository>
                 <pluginRepository>
                     <id>central</id>
-                    <url>https://artifact.oocl.com/artifactory/maven-repository-virtual-external</url>
+                    <url>https://artifact.cargosmart.com/artifactory/java-repository-virtual-external</url>
                     <releases>
                         <enabled>true</enabled>
                         <updatePolicy>always</updatePolicy>
