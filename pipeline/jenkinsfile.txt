@@ -1,0 +1,101 @@
+#!groovy
+node ("taskworker") {
+    cmsUtils = load "${PIPELINE_SCRIPT_PATH}/pipeline_script/Interface.groovy"
+}
+
+// application information (DO NOT EDIT)
+project					= "ITA"
+microservice			= "ita_dgth_03"
+techStack				= "java"
+//
+
+// GIT info
+SCMServer				= "hkggitlab"
+
+// tenant
+tenant                  = "<INPUT_TENANT>"
+
+// Platform Info
+platformType			= "<INPUT_PLATFORM_TYPE>"
+platformTargets 		= "<INPUT_PLATFORM_CODE:INPUT_PLATFORM_SPACE>"
+
+// deploy behaviour
+integratorEmailAddr		= "" // separate by " "
+
+// build info
+version					= "1.0.0"
+buildPath				= "/app"
+build_execScript    = "<Your Input>" // Script to generate java compiled file before cf push (relatively from “buildPath”) (e.g. cmsBuild in "/${buildPath}")
+build_outputFile    = "<Your Input>" // Location of output after build_execScript executed (relatively from “buildPath”) (e.g. /target/demo-1.0.0.jar)
+build_dockerRef     = "<Your Input>" // Docker base image to run the build_execScript (e.g. maven:3.6.2-jdk-8 from https://hub.docker.com/)
+
+// Config
+config_version          = "1.0.0"
+config_buildPath        = "/config"
+
+// Verification Config
+verification_version        = "1.0.0"
+verification_buildPath      = "/${buildPath}/verification"
+verification_extractPath    = ""
+verification_reportFolder   = ""
+unit_test_dockerRef         = ""
+integration_test_dockerRef  = ""
+unit_test_executionScript   = "unit_test_script"
+integration_test_executionScript = "verification"
+
+
+try {
+    /* Uncomment if needed */
+    /*
+    stage ("PackageVeificationConfig"){
+        node {
+            cmsUtils.Pipeline_Package_Verification_Config()
+        }
+    }
+   
+    stage ("UnitTest"){
+        node {
+            cmsUtils.Pipeline_Execute_Unit_Test()
+        }
+    }
+    */
+    stage ("Build"){
+        node {
+            cmsUtils.Pipeline_Package_PCF_Microservice()
+        }
+    }
+
+    stage ("Deploy"){
+        node {
+            cmsUtils.Pipeline_Deploy_PCF_Microservice()
+        }
+    }
+    /* Uncomment if needed */
+    /*
+    stage ("PackageConfig"){
+        node {
+            cmsUtils.Pipeline_Package_Microservice_Config()
+        }
+    }
+        
+    stage ("DeployConfig"){
+        node {
+            cmsUtils.Pipeline_Deploy_PCF_Microservice_Config()
+        }
+    }
+    */ 
+    stage ("Start"){
+        node {
+            cmsUtils.Pipeline_Start_PCF_Microservice()
+        }
+    }
+} catch (e) {
+    currentBuild.result = "FAILURE"
+    throw e
+} finally {
+    stage ("Summary"){
+        node {
+            cmsUtils.Pipeline_Send_Summary(currentBuild.result)
+        }
+    }
+}

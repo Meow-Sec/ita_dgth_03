@@ -1,0 +1,7 @@
+--- 
+applications:
+- name: ita_dgth_03
+  timeout: 180
+  memory: 512M
+  disk_quota: 512M
+  buildpack: java_buildpack_v4_20
