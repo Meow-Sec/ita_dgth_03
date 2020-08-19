@@ -1,0 +1,1359 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "ShipmentContextType (version 1.2.11)",
+  "type": "object",
+  "$id": "http://cargosmart.com/csbc/schemas/shipmentContextType.json",
+  "description": "All common types for shipment related",
+  "definitions": {
+
+    "AddressCityType": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "county": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "locationCode": {
+          "type": "object",
+          "$ref": "#/definitions/LocationCodeType"
+        },
+        "postalCode": {
+          "type": "string"
+        }
+      }
+    },
+
+    "AddressLineType": {
+      "type": "object",
+      "properties": {
+        "addressLines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "AWCargoSpecType": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "object",
+          "$ref": "#/definitions/LengthType"
+        },
+        "length": {
+          "type": "object",
+          "$ref": "#/definitions/LengthType"
+        },
+        "width": {
+          "type": "object",
+          "$ref": "#/definitions/LengthType"
+        },
+        "grossWeight": {
+          "type": "object",
+          "$ref": "#/definitions/WeightType"
+        },
+        "isShipsideDelivery": { "type": "boolean" },
+        "remarks": { "type": "string" },
+        "emergencyContacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CargoContactType"
+          }
+        }
+      }
+    },
+
+    "CargoContactType": {
+      "allOf": [
+        { "$ref": "#/definitions/ContactType" },
+        {
+          "properties": {
+            "bound": {
+              "type": "string",
+              "enum": [ "INBOUND", "OUTBOUND" ]
+            }
+          }
+        }
+      ]
+    },
+
+    "CargoType": {
+      "type": "object",
+      "required": [ "cargoNature", "cargoDescription" ],
+      "properties": {
+        "cargoSequence": {
+          "type": "integer"
+        },
+        "cargoNature": {
+          "type": "string",
+          "enum": [ "GC", "DG", "RF", "RD", "AD", "AW" ]
+        },
+        "cargoDescription": { "type": "string" },
+        "blCargoDescription": { "type": "string" },
+        "packaging": {
+          "type": "object",
+          "$ref": "#/definitions/PackagingType"
+        },
+        "packageGroup": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "innerPackageDescription": {
+              "type": "object",
+              "$ref": "#/definitions/PackagingType"
+            },
+            "outerPackageDescription": {
+              "type": "object",
+              "$ref": "#/definitions/PackagingType"
+            }
+          }
+        },
+        "grossWeight": {
+          "type": "object",
+          "$ref": "#/definitions/WeightType"
+        },
+        "netWeight": {
+          "type": "object",
+          "$ref": "#/definitions/WeightType"
+        },
+        "volume": {
+          "type": "object",
+          "$ref": "#/definitions/VolumeType"
+        },
+        "marksAndNumbersSequenceNumber": { "type": "integer" },
+        "marksAndNumbersLine": { "type": "string" },
+        "harmonizedCode": { "type": "string" },
+        "currentContainerNumber": {
+          "type": "string"
+        },
+        "currentContainerCheckDigit": {
+          "type": "string"
+        },
+        "associatedBookingNumber": {
+          "description": "for BL",
+          "type": "string"
+        },
+        "licencePermits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "string"
+              },
+              "permitType": {
+                "type": "string"
+              },
+              "dutiableType": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "customsClearance": {
+          "type": "object",
+          "properties": {
+            "customsClearanceDateTime": {
+              "type": "object",
+              "$ref": "#/definitions/DateTimeType"
+            },
+            "location": {
+              "type": "object",
+              "$ref": "#/definitions/LocationType"
+            },
+            "locationType": {
+              "type": "string",
+              "description": "IB- Inbound, XB- Cross border",
+              "enum": [ "IB", "XB" ]
+            },
+            "locationDescription": {
+              "type": "string"
+            },
+            "fndCustomsClearanceCode": {
+              "description": "TODO: Get all the customs clearance codes",
+              "type": "string"
+            }
+          }
+        },
+        "customsReference": {
+          "type": "object",
+          "properties": {
+            "customsReferenceDateTime": {
+              "type": "object",
+              "$ref": "#/definitions/DateTimeType"
+            },
+            "referenceType": {
+              "type": "string"
+            },
+            "referenceNumber": {
+              "type": "string"
+            }
+          }
+        },
+        "seal": {
+          "type": "object",
+          "$ref": "#/definitions/SealDefType"
+        },
+        "articleNumber": {
+          "type": "string"
+        },
+        "commodityCode": {
+          "type": "string"
+        },
+        "commodityDescription": {
+          "type": "string"
+        },
+        "packageUnit": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "packageSequenceNumber": {
+                "type": "integer"
+              },
+              "packageUnitQuantity": {
+                "type": "integer"
+              },
+              "packageUnitDescription": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "draftContainerNumber": {
+          "type": "string"
+        },
+        "containerLoadPlan": {
+          "type": "string"
+        },
+        "filingInfo": {
+          "type": "object",
+          "properties": {
+            "filingType": {
+              "description": "TODO: add enum",
+              "type": "string"
+            },
+            "filedBy": {
+              "type": "object",
+              "$ref": "#/definitions/PartyType"
+            },
+            "htsNumber": {
+              "type": "string"
+            },
+            "filingBLNumber": {
+              "type": "string"
+            }
+          }
+        },
+        "reeferCargoSpec": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReeferCargoSpecType"
+          }
+        },
+        "dgCargoSpec": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/DGCargoSpecType"
+          }
+        },
+        "awCargoSpec": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/AWCargoSpecType"
+          }
+        }
+      }
+    },
+
+    "CarrierRateDefType": {
+      "type": "object",
+      "properties": {
+        "carrierRateNumber": { "type": "string" },
+        "carrierRateType": {
+          "type": "string",
+          "enum": [ "Agreement", "Tariff", "Quotation", "ServiceContract", "Other" ]
+        }
+      }
+    },
+
+    "ContactNumberType": {
+      "type": "object",
+      "properties": {
+        "countryCode": { "type": "string" },
+        "areaCode": { "type": "string" },
+        "number": { "type": "string" }
+      }
+    },
+
+    "ContactType": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "contactPhone": {
+          "type": "object",
+          "$ref": "#/definitions/ContactNumberType"
+        },
+        "contactFax": {
+          "type": "object",
+          "$ref": "#/definitions/ContactNumberType"
+        },
+        "contactEmailAddress": {
+          "type": "string"
+        }
+      }
+    },
+
+    "DateTimeType": {
+      "type": "object",
+      "properties": {
+        "utc": {
+          "type": "string",
+          "description": "ISO 8601",
+          "examples": [
+            "2019-07-10T06:11:01.263Z"
+          ]
+        },
+        "local": {
+          "type": "string",
+          "description": "ISO 8601",
+          "examples": [
+            "2019-07-10T06:11:01.263+08:00"
+          ]
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "Time Zone",
+          "examples": [
+            "HKT"
+          ]
+        }
+      }
+    },
+
+    "DGCargoSpecType": {
+      "type": "object",
+      "properties": {
+        "dgSequenceNumber": { "type": "integer" },
+        "dgRegulator": { "type": "string" },
+        "imdgPage": { "type": "string" },
+        "imoClass": { "type": "string" },
+        "unNumber": { "type": "string" },
+        "technicalName": { "type": "string" },
+        "properShippingName": { "type": "string" },
+        "concentration": { "type": "string" },
+        "packageGroup": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "innerPackageDescription": {
+              "type": "object",
+              "$ref": "#/definitions/PackagingType"
+            },
+            "outerPackageDescription": {
+              "type": "object",
+              "$ref": "#/definitions/PackagingType"
+            }
+          }
+        },
+        "mfagNumber": { "type": "string" },
+        "emsNumber": { "type": "string" },
+        "psaClass": { "type": "string" },
+        "approvalCode": { "type": "string" },
+        "grossWeight": {
+          "type": "object",
+          "$ref": "#/definitions/WeightType"
+        },
+        "netWeight": {
+          "type": "object",
+          "$ref": "#/definitions/WeightType"
+        },
+        "netExplosiveWeight": {
+          "type": "object",
+          "$ref": "#/definitions/WeightType"
+        },
+        "flashPoint": {
+          "type": "object",
+          "$ref": "#/definitions/TemperatureType"
+        },
+        "elevatedTemperature": {
+          "type": "object",
+          "description": "also known as carriage temperature",
+          "$ref": "#/definitions/TemperatureType"
+        },
+        "controlTemperature": {
+          "type": "object",
+          "$ref": "#/definitions/TemperatureType"
+        },
+        "emergencyTemperature": {
+          "type": "object",
+          "$ref": "#/definitions/TemperatureType"
+        },
+        "sadt": {
+          "type": "object",
+          "description": "self-accelerating decomposition temperature",
+          "$ref": "#/definitions/TemperatureType"
+        },
+        "isLimitedQuantity": { "type": "boolean" },
+        "isInhalationHazardous": { "type": "boolean" },
+        "isReportableQuantity": { "type": "boolean" },
+        "isEmptyUnclean": {
+          "type": "boolean",
+          "description": "also known as residue last contained"
+        },
+        "isMarinePollutant": { "type": "boolean" },
+        "state": { "type": "string" },
+        "labels": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "type": "string"
+          }
+        },
+        "remarks": { "type": "string" },
+        "emergencyContacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CargoContactType"
+          }
+        },
+        "segregationGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ibcCode": { "type": "string" },
+        "subsidiaryRisk1": {
+          "type": "string",
+          "description": "subsidiary risk 1 value"
+        },
+        "subsidiaryRiskDescription1": {
+          "type": "string",
+          "description": "subsidiary risk 1 unit"
+        },
+        "subsidiaryRisk2": {
+          "type": "string",
+          "description": "subsidiary risk 2 value"
+        },
+        "subsidiaryRiskDescription2": {
+          "type": "string",
+          "description": "subsidiary risk 2 unit"
+        },
+        "mpaGroup": { "type": "string" },
+        "pkaGroup": { "type": "string" },
+        "erg": { "type": "string" },
+        "isExceptedQty": { "type": "boolean" },
+        "isWaste": { "type": "boolean" },
+        "placards": { "type": "string" },
+        "erap": {
+          "type": "string",
+          "description": "emergency response assistance assistance"
+        },
+        "poisonInhalationHazardZone": { "type": "string" },
+        "fumigation": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "fumigant name"
+            },
+            "dosage": { "type": "string" },
+            "dateTime": {
+              "type": "object",
+              "$ref": "#/definitions/DateTimeType"
+            }
+          }
+        }
+      }
+    },
+
+    "DoorAppointmentType": {
+      "type": "object",
+      "properties": {
+        "appointmentDateTime": {
+          "type": "object",
+          "$ref": "#/definitions/DateTimeType"
+        },
+        "address": {
+          "allOf": [
+            { "$ref": "#/definitions/LocationType" },
+            {
+              "properties": {
+                "street": { "type": "string" }
+              }
+            }
+          ]
+        },
+        "company": { "type": "string" },
+        "contact": {
+          "type": "object",
+          "$ref": "#/definitions/ContactType"
+        }
+      }
+    },
+
+    "ExternalReferenceType": {
+      "type": "object",
+      "properties": {
+        "referenceNumber": { "type": "string" },
+        "referenceDescription": { "type": "string" },
+        "referenceType": {
+          "type": "string",
+          "examples": [
+            "ABT - Customs Declaration Number",
+            "AR - Agent's Reference",
+            "BH - House B/L",
+            "BKG - Booking Number",
+            "BL - Bill of Lading Reference Number",
+            "BRF - Broker Reference",
+            "CAR - Carier Code",
+            "CBL - Customshouse Broker License Number",
+            "CE - Class of Contract Code",
+            "CGO - Consignee's Order Number",
+            "CGR - Consignee's Reference",
+            "CH - Customer catalog number",
+            "CIN - Consignee's Invoice Number",
+            "CINV - Commvercial Invoice Number",
+            "CLBL - Co-Loader Bill Of Lading Number",
+            "CR - Customer Reference Number",
+            "CRN - Container Release Number",
+            "CSA - Customer Service Agreement",
+            "CSBKG - CargoSmart Booking Reference Number",
+            "CSLR - Linked Reference Number",
+            "CSO - CSO/Agreement Number",
+            "CTN - Consignee Tax Number",
+            "CTR - Contract Number",
+            "CTRP - Contract Party Reference Number",
+            "CUS - Customs Status Information",
+            "CUSI - Customer Site ID",
+            "CUSIN - Customer's SI Number",
+            "CUSLO - Customer Load Reference",
+            "DCN - Declarant CR Number",
+            "DO - Delivery Order Number",
+            "ECN - Electronic Custom Clearance Number",
+            "ED - Export Declaration",
+            "EI - Employer's Identification Number",
+            "EX - Export License Number",
+            "EXPR - Export Reference Number",
+            "FCBL - First Carrier B/L Number",
+            "FID - File Identifier",
+            "FM - Federal Maritime Commission Forwarders Number",
+            "FR - Forwarder Reference",
+            "FS - FreightSmart Booking Number",
+            "GEN - Government Export Number",
+            "GRN - Government Reference Number",
+            "HDS - Hot Delivery Service",
+            "HO - Shipper's Hazardous Number",
+            "IB - In Bond Number",
+            "IBEID - India Email ID for Buyer",
+            "IBIEC - India Importer Exporter Code for Buyer",
+            "IBSB - Reserved (Inbound Split B/L)",
+            "IBTIN - India GST Identification No for Buyer",
+            "ICR - Inbound Customer Reference",
+            "INV - Invoice Number",
+            "ITN - Internal Transaction Number",
+            "IX - Item Number",
+            "KL - Contract Reference",
+            "LEC - Letter of Credit Number",
+            "MA - Ship Notice/Manifest Number",
+            "MB - Master Booking Number",
+            "MBL - Reserved (Memo B/L)",
+            "MVID - Motor Vehicle Identification Number",
+            "OTH - Other",
+            "OU - Tariff Supplement Number",
+            "PBN - Pattern Booking Number",
+            "PO - Purchase Order Number",
+            "PR - Price Quote Number",
+            "PRA - Proof of Report for ACI",
+            "PRBL - Pre BL Number",
+            "QUOT - Quotation Number",
+            "ROI - Reference Of Item",
+            "RP - Repetitive Pattern Code",
+            "RPN - Rail Pickup Number",
+            "SC - Service Contract Number",
+            "SCA - SCAC Code",
+            "SCN - Subcontract Number",
+            "SID - Shipper's Identifying Number for Shipment (SID)",
+            "SIR - Shipping Instruction Reference",
+            "SKU - SKU Number of Commodity",
+            "SN - Seal Number Qualifier",
+            "SO - Shipping Order Number",
+            "SR - Shipper Reference",
+            "TAIN - Taxing Authority Identification Number",
+            "TARIF - Tariff Item No.",
+            "TG - Transportation Control Number (TCN)",
+            "TJ - Federal Taxpayer's Identification Number",
+            "TN - Transaction Reference Number",
+            "TO - Transport Order Number",
+            "TVR - Time Volume Rate",
+            "UC - Unique Consignment Reference Number",
+            "VAN - Vessel Agent Number",
+            "VGM- Shipper VGM Reference",
+            "VID - Vehicle Identification Number",
+            "WARG - Warranty Registration Number"
+          ]
+        },
+        "ediReferenceType": { "type": "string" }
+      }
+    },
+
+    "FreightChargeType": {
+      "type": "object",
+      "properties": {
+        "freightChargeSequenceNumber": {
+          "type": "integer"
+        },
+        "revenueType": {
+          "type": "string"
+        },
+        "chargeType": {
+          "type": "string"
+        },
+        "unBill": {
+          "type": "boolean"
+        },
+        "payableElsewhere": {
+          "type": "boolean"
+        },
+        "chargeCode": {
+          "type": "string"
+        },
+        "chargePrintable": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "number"
+        },
+        "freightRate": {
+          "type": "number"
+        },
+        "calculateMethod": {
+          "type": "string"
+        },
+        "chargeAmount": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "currency": {
+              "type": "string"
+            }
+          }
+        },
+        "billingAmount": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "currency": {
+              "type": "string"
+            }
+          }
+        },
+        "chargeNetAmount": {
+          "type": "number"
+        },
+        "paymentCurrency": {
+          "type": "string"
+        },
+        "invoiceNumber": {
+          "type": "string"
+        },
+        "controlOffice": {
+          "type": "object",
+          "$ref": "#/definitions/OfficeType"
+        },
+        "collectionOffice": {
+          "type": "object",
+          "$ref": "#/definitions/OfficeType"
+        },
+        "totalAmount": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "currency": {
+              "type": "string"
+            }
+          }
+        },
+        "totalAmountInPaymentCurrency": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "currency": {
+              "type": "string"
+            },
+            "exchangeRate": {
+              "type": "number"
+            }
+          }
+        },
+        "totalAmountInAdditionalPaymentCurrency": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "currency": {
+              "type": "string"
+            },
+            "exchangeRate": {
+              "type": "number"
+            }
+          }
+        },
+        "svvd": {
+          "type": "object",
+          "$ref": "#/definitions/SimpleSVVDType"
+        },
+        "obCustomsUniqueVoyageReference": {
+          "type": "string"
+        },
+        "ibCustomsUniqueVoyageReference": {
+          "type": "string"
+        },
+        "obVoyageReference": {
+          "type": "string"
+        },
+        "ibVoyageReference": {
+          "type": "string"
+        },
+        "isApprovedForCustomer": {
+          "type": "boolean"
+        },
+        "chargeDescription": {
+          "type": "string"
+        },
+        "payByInformation": {
+          "type": "object",
+          "properties": {
+            "payerName": {
+              "type": "string"
+            },
+            "carrierCustomerCode": {
+              "type": "string"
+            },
+            "cityDetails": {
+              "type": "object",
+              "$ref": "#/definitions/SimpleCityType"
+            }
+          }
+        },
+        "ratePercentage": {
+          "description": "TODO: Check if has data",
+          "type": "number"
+        }
+      }
+    },
+
+    "HaulageType": {
+      "type": "object",
+      "properties": {
+        "outBound": {
+          "type": "string",
+          "enum": [ "C", "M", "R" ]
+        },
+        "inBound": {
+          "type": "string",
+          "enum": [ "C", "M", "R" ]
+        }
+      }
+    },
+
+    "LengthType": {
+      "type": "object",
+      "properties": {
+        "length": { "type": "number" },
+        "lengthUnit": {
+          "type": "string",
+          "enum": [ "C", "N", "F", "M" ]
+        }
+      }
+    },
+
+    "LocationCodeType": {
+      "type": "object",
+      "properties": {
+        "mutuallyDefinedCode": { "type": "string" },
+        "schedKDType": { "type": "string" },
+        "schedKDCode": { "type": "string" },
+        "unLocationCode": { "type": "string" }
+      }
+    },
+
+    "LocationType": {
+      "type": "object",
+      "properties": {
+        "unLocode": { "type": "string" },
+        "portName": { "type": "string" },
+        "portCode": { "type": "string" },
+        "city": { "type": "string" },
+        "county": { "type": "string" },
+        "state": { "type": "string" },
+        "country": { "type": "string" },
+        "facilityCode": { "type": "string" },
+        "facilityName": { "type": "string" },
+        "terminalOperator": {
+          "type": "object",
+          "properties": {
+            "orgID": {
+              "type": "string",
+              "description": "Org ID in platform"
+            },
+            "smdg": { "type": "string" },
+            "name": { "type": "string" }
+          }
+        },
+        "gpsLocation": {
+          "description": "ISO 6709 format",
+          "type": "string"
+        },
+        "gln": { "type": "string" },
+        "address": { "type": "string" },
+        "timeZone": {
+          "type": "string"
+        }
+      }
+    },
+
+    "MasterBooking": {
+      "type": "object",
+      "properties": {
+        "scacCode": { "type": "string" },
+        "spCompanyID": { "type": "string" },
+        "bookingNumber": { "type": "string" }
+      }
+    },
+
+    "MeasurementType": {
+      "type": "object",
+      "properties": {
+        "measurement": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "enum": [ "CBM", "CFT" ]
+        }
+      }
+    },
+
+    "OfficeType": {
+      "type": "object",
+      "properties": {
+        "officeCode": {
+          "type": "string"
+        },
+        "officeName": {
+          "type": "string"
+        },
+        "officeUNLocCode": {
+          "type": "string"
+        },
+        "officePhoneNumber": {
+          "type": "string"
+        }
+      }
+    },
+
+    "OriginDestinationType": {
+      "type": "object",
+      "properties": {
+        "locationName": { "type": "string" },
+        "cityDetails": {
+          "type": "object",
+          "$ref": "#/definitions/SimpleCityType"
+        },
+        "facility": {
+          "type": "object",
+          "$ref": "#/definitions/SimpleFacilityType"
+        }
+      }
+    },
+
+    "PackagingType": {
+      "type": "object",
+      "properties": {
+        "packageType": { "type": "string" },
+        "packageQty": { "type": "integer" },
+        "packageDescription": { "type": "string" },
+        "packageMaterial": { "type": "string" },
+        "packageName": { "type": "string" },
+        "packagePlural": { "type": "string" },
+        "packageCode": { "type": "string" }
+      }
+    },
+
+    "PartyReferenceType": {
+      "type": "object",
+      "properties": {
+        "referenceType": { "type": "string" },
+        "number": { "type": "string" }
+      }
+    },
+
+    "PartyType": {
+      "type": "object",
+      "properties": {
+        "orgID": {
+          "type": "string",
+          "description": "Org ID in platform"
+        },
+        "partyType": {
+          "type": "string",
+          "enum": [
+            "BAN",
+            "BPT",
+            "BRK",
+            "CAR",
+            "CGN",
+            "CSB",
+            "CSR",
+            "CUS",
+            "FWD",
+            "NPT",
+            "OTH",
+            "SHP",
+            "TRK",
+            "ANP",
+            "SIR",
+            "DVA",
+            "IVP",
+            "SHA",
+            "DGC",
+            "CSC",
+            "CPL",
+            "PYR",
+            "STO",
+            "SFR",
+            "OSP",
+            "NP2",
+            "MRC",
+            "RQT",
+            "GON",
+            "OOP",
+            "EXP",
+            "CCP",
+            "CTP",
+            "BLR",
+            "VSB",
+            "BKA"
+          ]
+        },
+        "partyName": { "type": "string" },
+        "carrierCustomerCode": { "type": "string" },
+        "isNeedReplyPartyEmail": { "type": "boolean" },
+        "contact": {
+          "type": "object",
+          "$ref": "#/definitions/ContactType"
+        },
+        "address": {
+          "type": "object",
+          "$ref": "#/definitions/LocationType"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PartyReferenceType"
+          }
+        }
+      }
+    },
+
+    "PieceCountType": {
+      "type": "object",
+      "properties": {
+        "pieceCount": { "type": "number" },
+        "pieceCountUnit": {
+          "type": "string"
+        }
+      }
+    },
+
+    "POLPODType": {
+      "type": "object",
+      "properties": {
+        "port": {
+          "type": "object",
+          "$ref": "#/definitions/SimplePortType"
+        },
+        "facility": {
+          "type": "object",
+          "$ref": "#/definitions/SimpleFacilityType"
+        }
+      }
+    },
+
+    "ReeferCargoSpecType": {
+      "type": "object",
+      "properties": {
+        "atmosphereType": {
+          "type": "string",
+          "enum": [ "AFAM", "CA", "MA", "MG", "NP", "MAG" ]
+        },
+        "temperature": {
+          "type": "object",
+          "$ref": "#/definitions/TemperatureType"
+        },
+        "ventilation": {
+          "type": "object",
+          "$ref": "#/definitions/VentilationType"
+        },
+        "gensetType": { "type": "string" },
+        "remarks": { "type": "string" },
+        "co2": { "type": "string" },
+        "o2": { "type": "string" },
+        "ventSettingCode": {
+          "type": "string",
+          "enum": [ "10OPN", "25OPN", "50OPN", "75OPN", "100OPN", "CLOSED", "OTHER" ]
+        },
+        "dehumidityPercentage": { "type": "integer" },
+        "sensitiveCargoDesc": { "type": "string" },
+        "isPreCoolingReq": { "type": "boolean" },
+        "isControlledAtmosphere": { "type": "boolean" },
+        "isReeferOperational": { "type": "boolean" },
+        "emergencyContacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CargoContactType"
+          }
+        }
+      }
+    },
+
+    "RoutePointType": {
+      "type": "object",
+      "description": "reperenting route and route legs into points",
+      "required": [ "pointSequence", "location", "arrivingTransportInfo", "departingTransportInfo" ],
+      "properties": {
+        "pointSequence": {
+          "type": "integer"
+        },
+        "pointRole": {
+          "type": "string",
+          "enum": [ "EmptyPickup", "FullReturn", "FirstPOL", "Transit", "LastPOD", "FinalHub", "EmptyReturn" ]
+        },
+        "location": {
+          "type": "object",
+          "$ref": "ShipmentContextType.json#/definitions/LocationType"
+        },
+        "isCustomerRequested": {
+          "type": "boolean",
+          "description": "if true, this is a stop off point requested by customer"
+        },
+        "arrivingTransportInfo": {
+          "type": "object",
+          "required": [ "mode" ],
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [ "Vessel", "Truck", "Rail", "Feeder", "Barge", "Air", "Other" ]
+            },
+            "vendor": {
+              "type": "object",
+              "$ref": "ShipmentContextType.json#/definitions/VendorType"
+            },
+            "voyageInfo": {
+              "type": "object",
+              "$ref": "ShipmentContextType.json#/definitions/SimpleSVVDType"
+            },
+            "eta": {
+              "type": "object",
+              "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+            }
+          }
+        },
+        "departingTransportInfo": {
+          "type": "object",
+          "required": [ "mode" ],
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [ "Vessel", "Truck", "Rail", "Feeder", "Barge", "Air", "Other" ]
+            },
+            "vendor": {
+              "type": "object",
+              "$ref": "ShipmentContextType.json#/definitions/VendorType"
+            },
+            "voyageInfo": {
+              "type": "object",
+              "$ref": "ShipmentContextType.json#/definitions/SimpleSVVDType"
+            },
+            "voyageBlockCode": {
+              "type": "string"
+            },
+            "etd": {
+              "type": "object",
+              "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+            }
+          }
+        }
+      }
+    },
+
+    "SealDefType": {
+      "type": "object",
+      "properties": {
+        "sealType": {
+          "type": "string",
+          "description": "Seal type. CA - Carrier, CU - Customs, SH - Shipper, TO - Terminal Operator, AC - Quaratine agency",
+          "example": "CA",
+          "enum": [ "CA", "CN", "CU", "FW", "HS", "MC", "NP", "QS", "RR", "SH", "TM", "VS", "OT" ]
+        },
+        "sealNumber": {
+          "type": "string",
+          "description": "Seal number",
+          "example": "KG323405"
+        }
+      }
+    },
+
+    "ShipmentPartyType": {
+      "allOf": [
+        { "$ref": "#/definitions/PartyType" },
+        {
+          "properties": {
+            "salesOfficeCode": { "type": "string" },
+            "customerCarrierCode": { "type": "string" },
+            "codeListQualifier": { "type": "string" },
+            "chargePaymentInstructions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "chargeCategoryCode": { "type": "string" },
+                  "prepaidCollectIndicator": {
+                    "type": "string",
+                    "enum": [ "Prepaid", "Collect" ]
+                  },
+                  "paymentLocation": {
+                    "type": "object",
+                    "properties": {
+                      "city": {
+                        "type": "object",
+                        "$ref": "#/definitions/SimpleCityType"
+                      },
+                      "locationName": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            },
+            "ediPartyType": { "type": "string" }
+          }
+        }
+      ]
+    },
+
+    "SimpleCityType": {
+      "type": "object",
+      "properties": {
+        "city": { "type": "string" },
+        "county": { "type": "string" },
+        "state": { "type": "string" },
+        "country": { "type": "string" },
+        "unLocode": { "type": "string" }
+      }
+    },
+
+    "SimpleFacilityType": {
+      "type": "object",
+      "properties": {
+        "facilityCode": { "type": "string" },
+        "facilityName": { "type": "string" }
+      }
+    },
+
+    "SimplePortType": {
+      "type": "object",
+      "properties": {
+        "portName": { "type": "string" },
+        "portCode": { "type": "string" },
+        "city": { "type": "string" },
+        "county": { "type": "string" },
+        "state": { "type": "string" },
+        "locationCode": {
+          "type": "object",
+          "$ref": "#/definitions/LocationCodeType"
+        },
+        "country": { "type": "string" }
+      }
+    },
+
+    "SimpleSVVDType": {
+      "type": "object",
+      "properties": {
+        "service": { "type": "string" },
+        "vessel": { "type": "string" },
+        "vesselName": { "type": "string" },
+        "vesselNationality": { "type": "string" },
+        "voyage": { "type": "string" },
+        "direction": { "type": "string" },
+        "lloydsNumber": { "type": "string" },
+        "callSign": { "type": "string" }
+      }
+    },
+
+    "SimpleTerminalType": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "operator": {
+          "type": "object",
+          "properties": {
+            "orgID": {
+              "type": "string",
+              "description": "Org ID in platform"
+            },
+            "smdg": { "type": "string" },
+            "name": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "SpecialHandlingType": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [ "DFF", "EW", "NPT", "OFU", "OOB", "OOD", "OSB", "OTC", "OST", "G2G", "G3G", "GST", "NONE", "SFH", "SDP" ]
+        },
+        "description": { "type": "string" }
+      }
+    },
+
+    "SVVDType": {
+      "allOf": [
+        { "$ref": "#/definitions/SimpleSVVDType" },
+        {
+          "properties": {
+            "callNumber": { "type": "integer" },
+            "vesselNationality": { "type": "string" }
+          }
+        }
+      ]
+    },
+
+    "TemperatureType": {
+      "type": "object",
+      "properties": {
+        "temperature": { "type": "number" },
+        "temperatureUnit": {
+          "type": "string",
+          "enum": [ "F", "C" ]
+        }
+      }
+    },
+
+    "TrafficModeType": {
+      "type": "object",
+      "properties": {
+        "outBound": {
+          "type": "string",
+          "enum": [ "FCL", "LCL", "FCL+LCL" ]
+        },
+        "inBound": {
+          "type": "string",
+          "enum": [ "FCL", "LCL", "FCL+LCL" ]
+        }
+      }
+    },
+
+    "VoyageStopType": {
+      "allOf": [
+        { "$ref": "#/definitions/POLPODType" },
+        {
+          "properties": {
+            "terminal": {
+              "type": "object",
+              "$ref": "#/definitions/SimpleTerminalType"
+            }
+          }
+        }
+      ]
+    },
+
+    "VendorType": {
+      "type": "object",
+      "properties": {
+        "orgID": {
+          "type": "string",
+          "description": "vessel operator, rail or truck company Org ID in platform"
+        },
+        "code": {
+          "type": "string",
+          "description": "could be SCAC, rail or truck company code"
+        },
+        "name": { "type": "string" }
+      }
+    },
+
+    "VentilationType": {
+      "type": "object",
+      "properties": {
+        "ventilation": { "type": "integer" },
+        "ventilationUnit": {
+          "type": "string",
+          "enum": [ "degrees", "cbfPerMin", "cbmPerHour", "percentage" ]
+        }
+      }
+    },
+
+    "VolumeType": {
+      "type": "object",
+      "properties": {
+        "volume": { "type": "number" },
+        "volumeUnit": {
+          "type": "string",
+          "enum": [ "CBF", "CBM", "CFT", "LIT", "CBI" ]
+        }
+      }
+    },
+
+    "WeightType": {
+      "type": "object",
+      "properties": {
+        "weight": { "type": "number" },
+        "weightUnit": {
+          "type": "string",
+          "enum": [ "KGM", "KGS", "LBS", "TON", "LT", "ST", "ET", "MT", "KG" ]
+        }
+      }
+    }
+  }
+}

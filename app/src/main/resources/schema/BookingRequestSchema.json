@@ -1,0 +1,371 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "BookingRequest",
+  "type": "object",
+  "$id": "BookingRequest.json",
+  "description": "Booking Request Schema",
+  "required": [
+    "messageInfo",
+    "requestorBookingReference",
+    "actionType",
+    "carrier",
+    "shipmentCargoType",
+    "containers",
+    "cargos"
+  ],
+  "anyOf": [
+    { "required": [ "shipper" ] },
+    { "required": [ "forwarder" ] }
+  ],
+  "properties": {
+    "_schemaVersion": {
+      "const": "1.1.1"
+    },
+    "messageInfo": {
+      "type": "object",
+      "required": [ "messageID", "messageType", "messageDateTime" ],
+      "properties": {
+        "messageID": { "type": "string" },
+        "messageType": { "type": "string" },
+        "messageDateTime": {
+          "type": "object",
+          "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+        },
+        "dataSource": { "type": "string" },
+        "senderID": { "type": "string" },
+        "receiverID": { "type": "string" }
+      }
+    },
+    "requestorBookingReference": {
+      "type": "string",
+      "description": "provided by booking request creator"
+    },
+    "carrierBookingNumber": { "type": "string" },
+    "actionType": {
+      "type": "string",
+      "enum": [ "NEW", "UPDATE", "CANCEL" ]
+    },
+    "brVersionNumber": { "type": "integer" },
+    "carrier": {
+      "type": "object",
+      "required": [ "scac" ],
+      "properties": {
+        "orgID": {
+          "type": "string",
+          "description": "Org ID in platform"
+        },
+        "scac": { "type": "string" },
+        "name": { "type": "string" }
+      }
+    },
+    "bookingOffice": {
+      "type": "string"
+    },
+    "creationDetails": {
+      "type": "object",
+      "properties": {
+        "requestedBy": { "type": "string" },
+        "emailAddress": { "type": "string" },
+        "requestedDateTime": {
+          "type": "object",
+          "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+        }
+      }
+    },
+    "amendmentDetails": {
+      "type": "object",
+      "properties": {
+        "amendedBy": { "type": "string" },
+        "emailAddress": { "type": "string" },
+        "amendedDateTime": {
+          "type": "object",
+          "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+        }
+      }
+    },
+    "notificationEmailAddress": { "type": "string" },
+    "shipmentCargoType": {
+      "type": "string",
+      "enum": [ "GC", "DG", "RF", "RD", "AD", "AW", "MIXED" ]
+    },
+    "shipmentTrafficMode": {
+      "type": "object",
+      "properties": {
+        "outBound": {
+          "type": "string",
+          "enum": [ "FCL", "LCL" ],
+          "default": "FCL"
+        },
+        "inBound": {
+          "type": "string",
+          "enum": [ "FCL", "LCL" ],
+          "default": "FCL"
+        }
+      }
+    },
+    "totalNumberOfPackage": { "type": "integer" },
+    "totalNumberOfEquipment": { "type": "integer" },
+    "shipper": {
+      "type": "object",
+      "$ref": "ShipmentContextType.json#/definitions/ShipmentPartyType"
+    },
+    "forwarder": {
+      "type": "object",
+      "$ref": "ShipmentContextType.json#/definitions/ShipmentPartyType"
+    },
+    "bookingParty": {
+      "type": "object",
+      "$ref": "ShipmentContextType.json#/definitions/ShipmentPartyType"
+    },
+    "consignee": {
+      "type": "object",
+      "$ref": "ShipmentContextType.json#/definitions/ShipmentPartyType"
+    },
+    "externalReferences": {
+      "type": "array",
+      "items": {
+        "$ref": "ShipmentContextType.json#/definitions/ExternalReferenceType"
+      }
+    },
+    "requestedDepartureWindow": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "object",
+          "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+        },
+        "to": {
+          "type": "object",
+          "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+        },
+        "locationType": {
+          "type": "string",
+          "enum": [ "POR", "POL" ]
+        }
+      }
+    },
+    "requestedArrivalWindow": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "object",
+          "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+        },
+        "to": {
+          "type": "object",
+          "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+        },
+        "locationType": {
+          "type": "string",
+          "enum": [ "FND", "POD" ]
+        }
+      }
+    },
+    "containers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "carrierContainerSizeType",
+          "quantity",
+          "estimatedContainerGrossWeight",
+          "estimatedContainerNetWeight",
+          "haulage",
+          "por",
+          "fnd",
+          "routePoints"
+        ],
+        "properties": {
+          "carrierContainerSizeType": {
+            "type": "string"
+          },
+          "quantity": { "type": "integer" },
+          "estimatedContainerGrossWeight": {
+            "type": "object",
+            "description": "Average gross weight per container",
+            "$ref": "ShipmentContextType.json#/definitions/WeightType"
+          },
+          "estimatedContainerNetWeight": {
+            "type": "object",
+            "description": "Average net weight per container",
+            "$ref": "ShipmentContextType.json#/definitions/WeightType"
+          },
+          "estimatedContainerVolume": {
+            "type": "object",
+            "description": "Average volume per container",
+            "$ref": "ShipmentContextType.json#/definitions/VolumeType"
+          },
+          "isSOC": {
+            "type": "boolean",
+            "default": false
+          },
+          "haulage": {
+            "type": "object",
+            "$ref": "ShipmentContextType.json#/definitions/HaulageType"
+          },
+          "emptyPickupDateTime": {
+            "type": "object",
+            "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+          },
+          "fullReturnDateTime": {
+            "type": "object",
+            "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+          },
+          "por": {
+            "type": "object",
+            "$ref": "ShipmentContextType.json#/definitions/SimpleCityType"
+          },
+          "fnd": {
+            "type": "object",
+            "$ref": "ShipmentContextType.json#/definitions/SimpleCityType"
+          },
+          "routePoints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [ "pointSequence", "location", "arrivingTransportInfo", "departingTransportInfo" ],
+              "properties": {
+                "pointSequence": {
+                  "type": "integer"
+                },
+                "pointRole": {
+                  "type": "string",
+                  "enum": [ "EmptyPickup", "FullReturn", "FirstPOL", "Transit", "LastPOD", "FinalHub", "EmptyReturn" ]
+                },
+                "location": {
+                  "type": "object",
+                  "$ref": "ShipmentContextType.json#/definitions/LocationType"
+                },
+                "isCustomerRequested": {
+                  "type": "boolean",
+                  "description": "if true, this is a stop off point requested by customer"
+                },
+                "arrivingTransportInfo": {
+                  "type": "object",
+                  "required": [ "mode" ],
+                  "properties": {
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "Vessel",
+                        "Truck",
+                        "Rail",
+                        "Feeder",
+                        "Barge",
+                        "Air",
+                        "Other"
+                      ]
+                    },
+                    "vendor": {
+                      "type": "object",
+                      "$ref": "ShipmentContextType.json#/definitions/VendorType"
+                    },
+                    "voyageInfo": {
+                      "type": "object",
+                      "$ref": "ShipmentContextType.json#/definitions/SimpleSVVDType"
+                    },
+                    "eta": {
+                      "type": "object",
+                      "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+                    }
+                  }
+                },
+                "departingTransportInfo": {
+                  "type": "object",
+                  "required": [ "mode" ],
+                  "properties": {
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "Vessel",
+                        "Truck",
+                        "Rail",
+                        "Feeder",
+                        "Barge",
+                        "Air",
+                        "Other"
+                      ]
+                    },
+                    "vendor": {
+                      "type": "object",
+                      "$ref": "ShipmentContextType.json#/definitions/VendorType"
+                    },
+                    "voyageInfo": {
+                      "type": "object",
+                      "$ref": "ShipmentContextType.json#/definitions/SimpleSVVDType"
+                    },
+                    "voyageBlockCode": {
+                      "type": "string"
+                    },
+                    "etd": {
+                      "type": "object",
+                      "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "cargos": {
+      "type": "array",
+      "description": "Can be empty cargo meaning shipping of empty container such as SOC case",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "$ref": "ShipmentContextType.json#/definitions/CargoType"
+      }
+    },
+    "specialInstruction": {
+      "type": "object",
+      "properties": {
+        "specialHandlings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "ShipmentContextType.json#/definitions/SpecialHandlingType"
+          }
+        },
+        "exportDeclarationRequired": {
+          "type": "string",
+          "enum": [ "S", "F", "N", "NS" ]
+        }
+      }
+    },
+    "remarks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "remarkType": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "uploadedDocuments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": { "type": "string" },
+          "documentTypeName": { "type": "string" },
+          "dmUUID": { "type": "string" },
+          "fileName": { "type": "string" },
+          "remarks": { "type": "string" },
+          "companyID": { "type": "string" },
+          "uploadedUserID": { "type": "string" },
+          "uploadedDT": {
+            "type": "object",
+            "$ref": "ShipmentContextType.json#/definitions/DateTimeType"
+          }
+        }
+      }
+    }
+  }
+}
