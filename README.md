@@ -49,9 +49,18 @@ user/password:kiali/kiali_AKS_P@ssw0rd
 [AESR,click me](https://csbc-aesr-ui-dev2.shrd.cargosmart.online/#/O2A/appSubscription)
    ![](imgs/AESM.png)
 
-organization ID:4d20c718-e072-4097-a65e-45cfac045361-ita03
+### biz api
+[BIZ API link ,click me](https://csbc-hm-biz-api-dev2-dshrd.shrd.cargosmart.online/swagger-ui/index.html#/documents-bookingRequest/post_documents_bookingRequest_)
+![](imgs/bizapi01.png)
+![](imgs/bizapi02.png)
+
+shipper organization ID:4d20c718-e072-4097-a65e-45cfac045361-ita03
+
+OOCL carrier organization:
+
+bizapi role: Shipper/Carrier
 
 application ID:cc21795e-2e88-4b95-825f-5cb306f36a31
 
-AESM DA return Queue:CS/SHRD/HOME/4d20c718-e072-4097-a65e-45cfac045361-ita02/APP/ITA-DGTH-03/EVT/DA
+AESM DA return Queue:CS/SHRD/HOME/4d20c718-e072-4097-a65e-45cfac045361-ita03/APP/ITA-DGTH-03/EVT/DA
  
