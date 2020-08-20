@@ -39,7 +39,7 @@ public class BookController {
         httpHeaders.set(X_GSBN_ORG, gsbnOrgId);
         httpHeaders.set(X_GSBN_APPLICATION, gsbnApplicationId);
         HttpEntity<Object> stringHttpEntity = new HttpEntity<>(httpHeaders);
-        return restTemplate.exchange(apiHost + "/documents/bookingRequest", HttpMethod.POST, stringHttpEntity, String.class);
+        return restTemplate.exchange(apiHost + "/documents/bookingRequest", HttpMethod.GET, stringHttpEntity, String.class);
     }
 
 }
