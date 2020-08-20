@@ -1,5 +1,6 @@
 package com.ita.demo.service;
 
+import com.ita.demo.model.BookingRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.awt.print.Book;
 
 /**
  * @author XUAL7
@@ -47,4 +49,16 @@ public class BookService {
         HttpEntity<Object> stringHttpEntity = generateHttpHeader();
         return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + id + "/version/" + version, HttpMethod.GET, stringHttpEntity, String.class);
     }
+
+    public ResponseEntity<String> updateBook(BookingRequest book) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(X_GSBN_ORG_ROLE, "Shipper");
+        headers.set(X_GSBN_ORG, gsbnOrgId);
+        headers.set(X_GSBN_APPLICATION, gsbnApplicationId);
+        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(book, headers);
+
+        return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + id + "/version/" + version, HttpMethod.PUT, stringHttpEntity, String.class);
+    }
+
+
 }
