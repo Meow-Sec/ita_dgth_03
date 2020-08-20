@@ -57,7 +57,7 @@ public class BookService {
 
     public ResponseEntity<String> updateBook(String id, String version, BookingRequest book) {
         HttpHeaders headers = getHttpHeaders();
-        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(book, headers);
+        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(JSON.parse(JSONObject.toJSONString(book)), headers);
         return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + id + "/version/" + version, HttpMethod.PUT, stringHttpEntity, String.class);
     }
 
