@@ -33,13 +33,23 @@ public class BookController {
     private RestTemplate restTemplate;
 
     @GetMapping("{assetId}")
-    public ResponseEntity<String> getOrder(@PathVariable Integer assertId) {
+    public ResponseEntity<String> getOrder(@PathVariable String assetId) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(X_GSBN_ORG_ROLE, "Shipper");
         httpHeaders.set(X_GSBN_ORG, gsbnOrgId);
         httpHeaders.set(X_GSBN_APPLICATION, gsbnApplicationId);
         HttpEntity<Object> stringHttpEntity = new HttpEntity<>(httpHeaders);
-        return restTemplate.exchange(apiHost + "/documents/bookingRequest", HttpMethod.GET, stringHttpEntity, String.class);
+        return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + assetId, HttpMethod.GET, stringHttpEntity, String.class);
+    }
+
+    @GetMapping("{assetId}/version/{version}")
+    public ResponseEntity<String> getOrderByVersion(@PathVariable String assetId, @PathVariable String version) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set(X_GSBN_ORG_ROLE, "Shipper");
+        httpHeaders.set(X_GSBN_ORG, gsbnOrgId);
+        httpHeaders.set(X_GSBN_APPLICATION, gsbnApplicationId);
+        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(httpHeaders);
+        return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + assetId + "/version/" + version, HttpMethod.GET, stringHttpEntity, String.class);
     }
 
 }
