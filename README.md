@@ -40,6 +40,10 @@
 ![](imgs/cms01.png)
 ![](imgs/cms02.png)
 ![](imgs/cms03.png)
+ #### get the app url
+
+![](imgs/cms4.png)
+![](imgs/cms5.png)
 ### Kiali url,you can check log here
 [kiali link,click me](https://kiali-tools.shrd.dh2.cargosmart.online/kiali/console/namespaces/ita-dev-dshrd/workloads/ita-dgth-demo-20200819004645248-deployment?tab=logs)
 
@@ -63,4 +67,9 @@ bizapi role: Shipper/Carrier
 application ID:cc21795e-2e88-4b95-825f-5cb306f36a31
 
 AESM DA return Queue:CS/SHRD/HOME/4d20c718-e072-4097-a65e-45cfac045361-ita03/APP/ITA-DGTH-03/EVT/DA
+
+### mongo db
+ [mongdb link ,click me](https://itamongo.shrd.cargosmart.online/db/ita/)
+ 
+ user/password:ita/itapwd123
  
