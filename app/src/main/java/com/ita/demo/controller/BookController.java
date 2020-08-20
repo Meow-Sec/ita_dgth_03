@@ -34,9 +34,9 @@ public class BookController {
         return bookService.getOrders(assetId, version);
     }
 
-    @PutMapping("/change")
-    public ResponseEntity<String> updateOrder(@RequestBody BookingRequest book) {
-        return bookService.updateBook(book);
+    @PutMapping("/documents/bookingRequest/{assetId}/version/{version}")
+    public ResponseEntity<String> updateOrder(@PathVariable String assertId, @PathVariable String version , @RequestBody BookingRequest book) {
+        return bookService.updateBook(assertId, version, book);
     }
 
 
