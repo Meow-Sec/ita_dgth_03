@@ -18,5 +18,6 @@ class AssetContent{
     String shipmentCargoType;
     List<Container> containers;
     List<Cargo> cargos;
+    Carrier carrier;
 
 }

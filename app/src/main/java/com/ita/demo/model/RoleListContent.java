@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-class Carrier{
-    String scac;
+public class RoleListContent {
+    String shipperOrgID;
+    String carrierOrgID;
 }

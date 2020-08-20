@@ -18,5 +18,6 @@ class Container{
     EstimatedContainerNetWeight estimatedContainerNetWeight;
     Haulage haulage;
     List<RoutePoint> routePoints;
-
+    Por por;
+    Fnd fnd;
 }

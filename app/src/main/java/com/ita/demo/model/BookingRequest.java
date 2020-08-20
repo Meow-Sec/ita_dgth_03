@@ -15,7 +15,7 @@ public class BookingRequest {
     String roleListType;
     AssetContent assetContent;
     RoleListLocatorKey roleListLocatorKey;
-
+    List<Role> roleLists;
 }
 
 

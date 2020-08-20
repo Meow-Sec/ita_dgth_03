@@ -9,6 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-class Carrier{
-    String scac;
+public class Role {
+    RoleListContent roleListContent;
+    RoleListLocatorKey roleListLocatorKey;
+    String roleListType;
 }

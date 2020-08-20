@@ -1,5 +1,7 @@
 package com.ita.demo.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.ita.demo.model.BookingRequest;
 import com.ita.demo.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +42,8 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveOrder(@RequestBody String bookingRequest){
-        ResponseEntity<String> exchange = bookService.saveOrder(bookingRequest);
-        return exchange;
+    public ResponseEntity<String> saveOrder(@RequestBody BookingRequest bookingRequest){
+        return bookService.saveOrder(JSON.toJSON(bookingRequest).toString());
     }
 
 }
