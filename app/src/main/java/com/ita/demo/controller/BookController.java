@@ -1,16 +1,15 @@
 package com.ita.demo.controller;
 
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.ita.demo.model.BookingRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -35,22 +34,22 @@ public class BookController {
 
     @GetMapping("{assetId}")
     public ResponseEntity<String> getOrder(@PathVariable String assetId) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set(X_GSBN_ORG_ROLE, "Shipper");
-        httpHeaders.set(X_GSBN_ORG, gsbnOrgId);
-        httpHeaders.set(X_GSBN_APPLICATION, gsbnApplicationId);
-        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(httpHeaders);
+        HttpEntity<Object> stringHttpEntity = generateHttpHeader();
         return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + assetId, HttpMethod.GET, stringHttpEntity, String.class);
     }
 
     @GetMapping("{assetId}/version/{version}")
     public ResponseEntity<String> getOrderByVersion(@PathVariable String assetId, @PathVariable String version) {
+        HttpEntity<Object> stringHttpEntity = generateHttpHeader();
+        return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + assetId + "/version/" + version, HttpMethod.GET, stringHttpEntity, String.class);
+    }
+
+    private HttpEntity<Object> generateHttpHeader() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(X_GSBN_ORG_ROLE, "Shipper");
         httpHeaders.set(X_GSBN_ORG, gsbnOrgId);
         httpHeaders.set(X_GSBN_APPLICATION, gsbnApplicationId);
-        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(httpHeaders);
-        return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + assetId + "/version/" + version, HttpMethod.GET, stringHttpEntity, String.class);
+        return new HttpEntity<>(httpHeaders);
     }
 
     @PostMapping
