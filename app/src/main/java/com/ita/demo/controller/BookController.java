@@ -1,15 +1,16 @@
 package com.ita.demo.controller;
 
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.ita.demo.model.BookingRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -50,6 +51,18 @@ public class BookController {
         httpHeaders.set(X_GSBN_APPLICATION, gsbnApplicationId);
         HttpEntity<Object> stringHttpEntity = new HttpEntity<>(httpHeaders);
         return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + assetId + "/version/" + version, HttpMethod.GET, stringHttpEntity, String.class);
+    }
+
+    @PostMapping
+    public String saveOrder(@RequestBody String bookingRequest){
+        System.out.println(bookingRequest);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(X_GSBN_ORG_ROLE, "Shipper");
+        headers.set(X_GSBN_ORG, gsbnOrgId);
+        headers.set(X_GSBN_APPLICATION, gsbnApplicationId);
+        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(JSON.parse(bookingRequest), headers);
+        ResponseEntity<String> exchange = restTemplate.exchange(apiHost + "/documents/bookingRequest/", HttpMethod.POST, stringHttpEntity, String.class);
+        return exchange.getBody();
     }
 
 }

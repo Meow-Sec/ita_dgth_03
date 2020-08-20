@@ -15,6 +15,7 @@ public class BookingRequest {
     String roleListType;
     AssetContent assetContent;
     RoleListLocatorKey roleListLocatorKey;
+
 }
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,6 +28,7 @@ class AssetContent{
     String shipmentCargoType;
     List<Container> containers;
     List<Cargo> cargos;
+
 }
 
 @AllArgsConstructor
@@ -37,6 +39,7 @@ class MessageInfo{
     String messageID;
     String messageType;
     MessageDateTime messageDateTime;
+
 }
 
 @AllArgsConstructor
@@ -47,6 +50,7 @@ class MessageDateTime{
     String utc;
     String local;
     String timeZone;
+
 }
 
 @AllArgsConstructor
@@ -55,6 +59,8 @@ class MessageDateTime{
 @Setter
 class Carrier{
     String scac;
+
+
 }
 
 @AllArgsConstructor
@@ -68,6 +74,7 @@ class Container{
     EstimatedContainerNetWeight estimatedContainerNetWeight;
     Haulage haulage;
     List<RoutePoint> routePoints;
+
 }
 
 @AllArgsConstructor
@@ -75,8 +82,8 @@ class Container{
 @Getter
 @Setter
 class EstimatedContainerGrossWeight{
-//    Double weight;
-//    String weightUnit;
+    Double weight;
+    String weightUnit;
 }
 
 @AllArgsConstructor
@@ -84,8 +91,8 @@ class EstimatedContainerGrossWeight{
 @Getter
 @Setter
 class EstimatedContainerNetWeight{
-//    Double weight;
-//    String weightUnit;
+    Double weight;
+    String weightUnit;
 }
 
 @AllArgsConstructor
@@ -95,6 +102,7 @@ class EstimatedContainerNetWeight{
 class Haulage{
     String outBound;
     String inBound;
+
 }
 
 @AllArgsConstructor
@@ -102,11 +110,11 @@ class Haulage{
 @Getter
 @Setter
 class Por{
-//    String city;
-//    String county;
-//    String state;
-//    String country;
-//    String unLocode;
+    String city;
+    String county;
+    String state;
+    String country;
+    String unLocode;
 }
 
 @AllArgsConstructor
@@ -114,11 +122,11 @@ class Por{
 @Getter
 @Setter
 class Fnd{
-//    String city;
-//    String county;
-//    String state;
-//    String country;
-//    String unLocode;
+    String city;
+    String county;
+    String state;
+    String country;
+    String unLocode;
 }
 
 @AllArgsConstructor
@@ -140,20 +148,20 @@ class Location{
     /**
      * 应该可以不写东西上去
      */
-//    String unLocode;
-//    String portName;
-//    String portCode;
-//    String city;
-//    String county;
-//    String state;
-//    String country;
-//    String facilityCode;
-//    String facilityName;
-//    String gpsLocation;
-//    String gln;
-//    String address;
-//    String timeZone;
-//    TerminalOperator terminalOperator;
+    String unLocode;
+    String portName;
+    String portCode;
+    String city;
+    String county;
+    String state;
+    String country;
+    String facilityCode;
+    String facilityName;
+    String gpsLocation;
+    String gln;
+    String address;
+    String timeZone;
+    TerminalOperator terminalOperator;
 }
 
 @AllArgsConstructor
@@ -193,8 +201,7 @@ class Cargo{
     String cargoDescription;
 }
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
 class RoleListLocatorKey{
