@@ -67,7 +67,7 @@ class Container{
     EstimatedContainerGrossWeight estimatedContainerGrossWeight;
     EstimatedContainerNetWeight estimatedContainerNetWeight;
     Haulage haulage;
-    List<RoutePoints> routePoints;
+    List<RoutePoint> routePoints;
 }
 
 @AllArgsConstructor
@@ -75,8 +75,8 @@ class Container{
 @Getter
 @Setter
 class EstimatedContainerGrossWeight{
-    Double weight;
-    String weightUnit;
+//    Double weight;
+//    String weightUnit;
 }
 
 @AllArgsConstructor
@@ -84,8 +84,8 @@ class EstimatedContainerGrossWeight{
 @Getter
 @Setter
 class EstimatedContainerNetWeight{
-    Double weight;
-    String weightUnit;
+//    Double weight;
+//    String weightUnit;
 }
 
 @AllArgsConstructor
@@ -102,11 +102,11 @@ class Haulage{
 @Getter
 @Setter
 class Por{
-    String city;
-    String county;
-    String state;
-    String country;
-    String unLocode;
+//    String city;
+//    String county;
+//    String state;
+//    String country;
+//    String unLocode;
 }
 
 @AllArgsConstructor
@@ -114,18 +114,18 @@ class Por{
 @Getter
 @Setter
 class Fnd{
-    String city;
-    String county;
-    String state;
-    String country;
-    String unLocode;
+//    String city;
+//    String county;
+//    String state;
+//    String country;
+//    String unLocode;
 }
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-class RoutePoints{
+class RoutePoint{
     Integer pointSequence;
     Location location;
     ArrivingTransportInfo arrivingTransportInfo;
@@ -140,20 +140,20 @@ class Location{
     /**
      * 应该可以不写东西上去
      */
-    String unLocode;
-    String portName;
-    String portCode;
-    String city;
-    String county;
-    String state;
-    String country;
-    String facilityCode;
-    String facilityName;
-    String gpsLocation;
-    String gln;
-    String address;
-    String timeZone;
-    TerminalOperator terminalOperator;
+//    String unLocode;
+//    String portName;
+//    String portCode;
+//    String city;
+//    String county;
+//    String state;
+//    String country;
+//    String facilityCode;
+//    String facilityName;
+//    String gpsLocation;
+//    String gln;
+//    String address;
+//    String timeZone;
+//    TerminalOperator terminalOperator;
 }
 
 @AllArgsConstructor
