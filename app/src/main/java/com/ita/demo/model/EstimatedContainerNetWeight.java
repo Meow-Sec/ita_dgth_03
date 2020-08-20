@@ -5,26 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookingRequest {
-    String roleListType;
-    AssetContent assetContent;
-    RoleListLocatorKey roleListLocatorKey;
-
+class EstimatedContainerNetWeight{
+    Double weight;
+    String weightUnit;
 }
-
-
-
-
-
-
-
-
-
-
-
