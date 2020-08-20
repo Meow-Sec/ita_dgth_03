@@ -37,7 +37,7 @@ public class BookBroker {
         jsonObject.put("transactionId", transactionId);
         jsonObject.put("body", incomingMessageJson);
 
-        mongoTemplate.save(jsonObject, "dbMessage");
+        mongoTemplate.save(jsonObject, "ita-03");
     }
 
 }
