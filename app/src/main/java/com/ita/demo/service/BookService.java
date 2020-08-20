@@ -52,10 +52,7 @@ public class BookService {
     }
 
     public ResponseEntity<String> updateBook(String id, String version, BookingRequest book) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(X_GSBN_ORG_ROLE, "Shipper");
-        headers.set(X_GSBN_ORG, gsbnOrgId);
-        headers.set(X_GSBN_APPLICATION, gsbnApplicationId);
+        HttpHeaders headers = getHttpHeaders();
         HttpEntity<Object> stringHttpEntity = new HttpEntity<>(book, headers);
         return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + id + "/version/" + version, HttpMethod.PUT, stringHttpEntity, String.class);
     }
