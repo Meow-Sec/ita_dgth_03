@@ -12,9 +12,11 @@ import javax.jms.TextMessage;
 
 import static org.apache.commons.lang.StringUtils.isBlank;
 
+/**
+ * @author XUAL7
+ */
 @Slf4j
 @Component
-
 public class BookBroker {
     private final String LISTENED_QUEUE = "CS/SHRD/HOME/4d20c718-e072-4097-a65e-45cfac045361-ita03/APP/ITA-DGTH-03/EVT/DA";
     private static final String DEFAULT_CONCURRENCY = "1";
