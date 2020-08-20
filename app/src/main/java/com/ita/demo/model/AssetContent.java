@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-class AssetContent{
+public class AssetContent{
     MessageInfo messageInfo;
     String requestorBookingReference;
     String actionType;
@@ -19,5 +19,6 @@ class AssetContent{
     List<Container> containers;
     List<Cargo> cargos;
     Carrier carrier;
+    RoleListLocatorKey roleListLocatorKey;
 
 }

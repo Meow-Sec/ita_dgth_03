@@ -38,7 +38,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveOrder(@RequestBody String bookingRequest){
+    public ResponseEntity<String> saveOrder(@RequestBody BookingRequest bookingRequest){
         ResponseEntity<String> exchange = bookService.saveOrder(bookingRequest);
         return exchange;
     }

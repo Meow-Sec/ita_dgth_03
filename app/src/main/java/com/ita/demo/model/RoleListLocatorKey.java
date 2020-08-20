@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-class RoleListLocatorKey{
+public class RoleListLocatorKey{
     String carrierScac;
     String requestorBookingReference;
     String roleListType;

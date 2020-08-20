@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-class Container{
+public class Container{
     String carrierContainerSizeType;
     Integer quantity;
     EstimatedContainerGrossWeight estimatedContainerGrossWeight;

@@ -1,7 +1,10 @@
 package com.ita.demo.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPath;
 import com.ita.demo.model.BookingRequest;
 import com.alibaba.fastjson.JSON;
+import jdk.nashorn.internal.parser.JSONParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.awt.print.Book;
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -57,9 +61,15 @@ public class BookService {
         return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + id + "/version/" + version, HttpMethod.PUT, stringHttpEntity, String.class);
     }
 
+    public ResponseEntity<String> saveOrder(BookingRequest bookingRequest){
+        String random = String.valueOf(new Date().getTime());
 
-    public ResponseEntity<String> saveOrder(String bookingRequest){
-        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(JSON.parse(bookingRequest), getHttpHeaders());
+        bookingRequest.getAssetContent().setRequestorBookingReference(random);
+        bookingRequest.getRoleListLocatorKey().setRequestorBookingReference(random);
+        bookingRequest.getRoleLists().forEach(role -> {
+            role.getRoleListLocatorKey().setRequestorBookingReference(random);
+        });
+        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(JSON.parse(JSONObject.toJSONString(bookingRequest)), getHttpHeaders());
         return restTemplate.exchange(apiHost + "/documents/bookingRequest/", HttpMethod.POST, stringHttpEntity, String.class);
     }
 }
