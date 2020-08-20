@@ -14,8 +14,8 @@ import javax.annotation.Resource;
 /**
  * @author XUAL7
  */
-@Service
 @Slf4j
+@Service
 public class BookService {
     protected static final String X_GSBN_APPLICATION = "x-gsbn-application";
     protected static final String X_GSBN_ORG = "x-gsbn-org";
