@@ -5,26 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookingRequest {
-    String roleListType;
-    AssetContent assetContent;
-    RoleListLocatorKey roleListLocatorKey;
-
+class Fnd{
+    String city;
+    String county;
+    String state;
+    String country;
+    String unLocode;
 }
-
-
-
-
-
-
-
-
-
-
-

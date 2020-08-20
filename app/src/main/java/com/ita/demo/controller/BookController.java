@@ -3,20 +3,24 @@ package com.ita.demo.controller;
 import com.ita.demo.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * @author XUAL7
- */
 @RestController
 @RequestMapping("/orders")
 @Slf4j
 public class BookController {
+    protected static final String X_GSBN_APPLICATION = "x-gsbn-application";
+    protected static final String X_GSBN_ORG = "x-gsbn-org";
+    protected static final String X_GSBN_ORG_ROLE = "x-gsbn-org-role";
 
+    @Value("${gsbn.host}")
+    protected String apiHost;
+    @Value("${gsbn.application-id}")
+    protected String gsbnApplicationId;
+    @Value("${gsbn.org-id}")
+    protected String gsbnOrgId;
 
     private final BookService bookService;
 
@@ -35,5 +39,10 @@ public class BookController {
         return bookService.getOrders(assetId, version);
     }
 
+    @PostMapping
+    public ResponseEntity<String> saveOrder(@RequestBody String bookingRequest){
+        ResponseEntity<String> exchange = bookService.saveOrder(bookingRequest);
+        return exchange;
+    }
 
 }

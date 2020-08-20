@@ -11,20 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookingRequest {
-    String roleListType;
-    AssetContent assetContent;
-    RoleListLocatorKey roleListLocatorKey;
+class AssetContent{
+    MessageInfo messageInfo;
+    String requestorBookingReference;
+    String actionType;
+    String shipmentCargoType;
+    List<Container> containers;
+    List<Cargo> cargos;
 
 }
-
-
-
-
-
-
-
-
-
-
-

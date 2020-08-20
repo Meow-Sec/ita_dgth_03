@@ -5,26 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
+// Can be empty cargo meaning shipping of empty container such as SOC case
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookingRequest {
-    String roleListType;
-    AssetContent assetContent;
-    RoleListLocatorKey roleListLocatorKey;
-
+class Cargo{
+    String cargoNature;
+    String cargoDescription;
 }
-
-
-
-
-
-
-
-
-
-
-
