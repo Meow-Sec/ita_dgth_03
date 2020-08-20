@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/ita01
+      uri: mongodb://localhost:27017/ita03
 
 solace:
   jms:
