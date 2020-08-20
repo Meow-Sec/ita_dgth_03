@@ -1,5 +1,6 @@
 package com.ita.demo.service;
 
+import com.ita.demo.model.BookingRequest;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.awt.print.Book;
 
 @Service
 @Slf4j
@@ -48,6 +50,14 @@ public class BookService {
         HttpEntity<Object> stringHttpEntity = generateHttpHeader();
         return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + id + "/version/" + version, HttpMethod.GET, stringHttpEntity, String.class);
     }
+
+    public ResponseEntity<String> updateBook(String id, String version, BookingRequest book) {
+        HttpHeaders headers = getHttpHeaders();
+        HttpEntity<Object> stringHttpEntity = new HttpEntity<>(book, headers);
+        return restTemplate.exchange(apiHost + "/documents/bookingRequest/" + id + "/version/" + version, HttpMethod.PUT, stringHttpEntity, String.class);
+    }
+
+
     public ResponseEntity<String> saveOrder(String bookingRequest){
         HttpEntity<Object> stringHttpEntity = new HttpEntity<>(JSON.parse(bookingRequest), getHttpHeaders());
         return restTemplate.exchange(apiHost + "/documents/bookingRequest/", HttpMethod.POST, stringHttpEntity, String.class);
